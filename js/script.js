@@ -1,22 +1,38 @@
+document.documentElement.classList.add('js-enabled');
+
 const reveals = document.querySelectorAll('.reveal');
 
-const observer = new IntersectionObserver((entries) => {
+const activateReveal = (element) => {
+  element.classList.add('active');
+};
 
-  entries.forEach((entry) => {
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver((entries) => {
 
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
-    }
+    entries.forEach((entry) => {
 
+      if (entry.isIntersecting) {
+        activateReveal(entry.target);
+        observer.unobserve(entry.target);
+      }
+
+    });
+
+  }, {
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.01,
   });
 
-}, {
-  threshold: 0.15,
-});
+  reveals.forEach((element) => {
+    observer.observe(element);
+  });
+} else {
+  reveals.forEach(activateReveal);
+}
 
-reveals.forEach((element) => {
-  observer.observe(element);
-});
+window.setTimeout(() => {
+  reveals.forEach(activateReveal);
+}, 1200);
 
 
 const orbs = document.querySelectorAll('.gradient-orb');

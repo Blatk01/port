@@ -57,4 +57,3 @@ menuBtn.addEventListener('click', () => {
   }
 
 });
-```

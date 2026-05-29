@@ -397,12 +397,17 @@ main {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 1s ease;
+  opacity: 1;
+  transform: none;
 }
 
-.reveal.active {
+.js-enabled .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.js-enabled .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
